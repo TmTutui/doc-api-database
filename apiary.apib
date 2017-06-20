@@ -1,0 +1,1117 @@
+FORMAT: 1A
+HOST: https://app.pipefy.com
+
+# Pipefy API
+
+This is Database's API documentation.
+
+[Here](http://docs.pipefy.apiary.io) you will find the guidelines for getting started with the API.
+
+## List tables [/queries{?tables}]
+
+Get tables by table ids.
+
+**Request Body**
+
+```
+query {
+  tables(ids: ["G16Za4kK"]) {
+    id
+    name
+    url
+  }
+}
+```
+
+### tables(ids: [TABLE_IDS]) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "{ tables(ids: [\"G16Za4kK\"]) { id name url } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "tables": [
+                  {
+                    "id": "G16Za4kK",
+                    "name": "Employees",
+                    "url": "http://app.pipefy.com/database_v2/tables/G16Za4kK-employees"
+                  }
+                ]
+              }
+            }
+
+## Show table [/queries{?table}]
+
+Get a table by table id.
+
+**Request Body**
+
+```
+query {
+  table(id: "G16Za4kK") {
+    authorization
+    create_record_button_label
+    description
+    icon
+    id
+    labels {
+      id
+    }
+    members {
+      role_name
+    }
+    my_permissions {
+      can_manage_record
+      can_manage_table
+    }
+    name
+    public
+    public_form
+    summary_attributes {
+      id
+    }
+    summary_options {
+      name
+    }
+    table_fields {
+      id
+    }
+    table_records {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    table_records_count
+    title_field {
+      id
+    }
+    url
+  }
+}
+```
+
+### table(id: "TABLE_ID") [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "{ table(id: \"G16Za4kK\") { authorization create_record_button_label description icon id labels { id } members { role_name user { id } } my_permissions { can_manage_record can_manage_table } name public public_form summary_attributes { id } summary_options { name } table_fields { id } table_records { edges { node { id } } } table_records_count title_field { id } url } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "table": {
+                  "authorization": "read",
+                  "create_record_button_label": null,
+                  "description": "",
+                  "icon": "badge",
+                  "id": "G16Za4kK",
+                  "labels": [],
+                  "members": [
+                    {
+                      "role_name": "admin",
+                      "user": {
+                        "id": "75210"
+                      }
+                    }
+                  ],
+                  "my_permissions": {
+                    "can_manage_record": true,
+                    "can_manage_table": true
+                  },
+                  "name": "Employees",
+                  "public": true,
+                  "public_form": null,
+                  "summary_attributes": [
+                    {
+                      "id": "3571185"
+                    }
+                  ],
+                  "summary_options": [
+                    {
+                      "name": "Start form"
+                    }
+                  ],
+                  "table_fields": [
+                    {
+                      "id": "name"
+                    }
+                  ],
+                  "table_records": {
+                    "edges": [
+                      {
+                        "node": {
+                          "id": "2193259"
+                        }
+                      }
+                    ]
+                  },
+                  "table_records_count": 1,
+                  "title_field": {
+                    "id": "name"
+                  },
+                  "url": "http://app.pipefy.com/database_v2/tables/xxxxxxxx-employees"
+                }
+              }
+            }
+
+## Create table [/queries{?create_table}]
+
+Mutation to create a table, in case of success a query is returned.
+
+**Request Body**
+
+```
+mutation {
+  createTable(
+    input: {
+      organization_id: 1
+      name: "All fields"
+      description: "Client's company"
+      public: true
+      authorization: write
+    }
+  ) {
+    table {
+      id
+      name
+      description
+      public
+      authorization
+    }
+  }
+}
+```
+
+### createTable(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { createTable(input: { organization_id: 1 name: \"Table example\"description: \"Table that comtain some data\"public: true authorization: write }) { table { id name description public authorization } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "createTable": {
+                  "table": {
+                    "id": "zCud6K1k",
+                    "name": "Table example",
+                    "description": "Table that comtain some data",
+                    "public": true,
+                    "authorization": "write"
+                  }
+                }
+              }
+            }
+
+## Update table [/queries{?update_table}]
+
+Mutation to update a table, in case of success a query is returned.
+
+**Request Body**
+
+```
+mutation {
+  updateTable(
+    input: {
+      id: "_8bnXwpA"
+      name: "Dogs"
+      description: "Dog's list"
+      public: true,
+      authorization: write
+      icon: "dog"
+      create_record_button_label: "Add dog"
+      title_field_id: "what"
+      public_form: true
+      summary_attributes: ["id","created_at"]
+    }
+  ) {
+    table {
+      id
+      name
+      description
+      public
+      authorization
+      icon
+      create_record_button_label
+      title_field_id
+      public_form
+      summary_attributes
+    }
+  }
+}
+```
+
+### updateTable(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { updateTable(input: { id: \"_8bnXwpA\"name: \"Dogs\"description: \"Dog's list\"public: true, authorization: write icon: \"dog\"create_record_button_label: \"Add dog\"title_field_id: \"what\"public_form: true summary_attributes: [\"id\",\"created_at\"] }) { table { id name description public authorization icon create_record_button_label title_field { id } public_form summary_attributes { id } } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "updateTable": {
+                  "table": {
+                    "id": "_8bnXwpA",
+                    "name": "Dogs",
+                    "description": "Dog's list",
+                    "public": true,
+                    "authorization": "write",
+                    "icon": "dog",
+                    "create_record_button_label": "Add dog",
+                    "title_field": {
+                      "id": "what"
+                    },
+                    "public_form": true,
+                    "summary_attributes": [
+                      {
+                        "id": "created_at"
+                      },
+                      {
+                        "id": "id"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+
+## Delete table [/queries{?delete_table}]
+
+Mutation to delete a table, in case of success a query with field `success` is returned.
+
+**Request Body**
+
+```
+mutation {
+  deleteTable(input: { id: "5uSTR_-u" }) {
+    success
+  }
+}
+```
+
+### deleteTable(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { deleteTable(input: { id: \"5uSTR_-u\" }) { success } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "deleteTable": {
+                  "success": true
+                }
+              }
+            }
+
+## Create table field [/queries{?create_table_field}]
+
+Mutation to create a table field, in case of success a query is returned.
+
+Avaliable types:
+
+| type                 | required | unique | custom_validation |
+| :---                 | :---:    | :---:  | :---:             |
+| assignee_select      | ✔        | ✖      | ✖                 |
+| attachment           | ✔        | ✖      | ✔                 |
+| checklist_horizontal | ✔        | ✖      | ✖                 |
+| checklist_vertical   | ✔        | ✖      | ✖                 |
+| cnpj                 | ✔        | ✔      | ✖                 |
+| connector            | ✔        | ✖      | ✖                 |
+| cpf                  | ✔        | ✔      | ✖                 |
+| currency             | ✔        | ✔      | ✖                 |
+| database_link        | ✔        | ✖      | ✖                 |
+| date                 | ✔        | ✔      | ✖                 |
+| datetime             | ✔        | ✔      | ✖                 |
+| due_date             | ✔        | ✔      | ✖                 |
+| email                | ✔        | ✔      | ✖                 |
+| id                   | ✔        | ✖      | ✖                 |
+| label_select         | ✔        | ✖      | ✖                 |
+| long_text            | ✔        | ✖      | ✖                 |
+| number               | ✔        | ✔      | ✖                 |
+| phone                | ✔        | ✔      | ✖                 |
+| radio_horizontal     | ✔        | ✖      | ✖                 |
+| radio_vertical       | ✔        | ✖      | ✖                 |
+| select               | ✔        | ✖      | ✖                 |
+| short_text           | ✔        | ✔      | ✔                 |
+| statement            | ✔        | ✖      | ✖                 |
+| time                 | ✔        | ✔      | ✖                 |
+
+**Request Body**
+
+```
+mutation {
+  createTableField(
+    input: {
+      table_id: "t0--S8ct"
+      type: "radio_vertical"
+      label: "Gender"
+      options: ["Female", "Male"]
+      description: "Select your gender"
+      help: ""
+      required: true
+      minimal_view: false
+      custom_validation: ""
+    }
+  ) {
+    table_field {
+      id
+      label
+      type
+      options
+      description
+      help
+      required
+      minimal_view
+      custom_validation
+    }
+  }
+}
+```
+
+### createTableField(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { createTableField(input: { table_id: \"t0--S8ct\" type: \"radio_vertical\" label: \"Gender\" options: [\"Female\", \"Male\"] description: \"Select your gender\" help: \"\" required: true minimal_view: false custom_validation: \"\"} ) { table_field { id label type options description help required minimal_view custom_validation } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "createTableField": {
+                  "table_field": {
+                    "id": "gender",
+                    "label": "Gender",
+                    "type": "radio_vertical",
+                    "options": [
+                      "Female",
+                      "Male"
+                    ],
+                    "description": "Select your gender",
+                    "help": "",
+                    "required": true,
+                    "minimal_view": false,
+                    "custom_validation": null
+                  }
+                }
+              }
+            }
+
+## Update table field [/queries{?update_table_field}]
+
+Mutation to update a table field, in case of success a query is returned.
+
+**Request Body**
+
+```
+mutation {
+  updateTableField(
+    input: {
+      table_id: "t0--S8ct"
+      id:"gender"
+      label: "Gender"
+      options: ["Female", "Male"]
+      description: "Select your gender"
+      help: ""
+      required: true
+      minimal_view: false
+      custom_validation: ""
+    }
+  ) {
+    table_field {
+      id
+      label
+      type
+      options
+      description
+      help
+      required
+      minimal_view
+      custom_validation
+    }
+  }
+}
+```
+
+### updateTableField(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { updateTableField(input: { table_id: \"t0--S8ct\" id:\"gender\" label: \"Gender\" options: [\"Female\", \"Male\"] description: \"Select your gender\" help: \"\" required: true minimal_view: false custom_validation: \"\"} ) { table_field { id label type options description help required minimal_view custom_validation } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "updateTableField": {
+                  "table_field": {
+                    "id": "gender",
+                    "label": "Gender",
+                    "type": "radio_vertical",
+                    "options": [
+                      "Female",
+                      "Male"
+                    ],
+                    "description": "Select your gender",
+                    "help": "",
+                    "required": true,
+                    "minimal_view": false,
+                    "custom_validation": null
+                  }
+                }
+              }
+            }
+
+## Set table record field value [/queries{?set_table_field_order}]
+
+Mutation to set a table field order, in case of success a query with field `success` is returned.
+
+**Request Body**
+
+```
+mutation {
+  setTableFieldOrder(
+    input: {
+      table_id: "Dd7rLK9T"
+      field_ids: ["first_name", "last_name", "email"]
+    }
+  ) {
+    table_fields {
+      id
+    }
+  }
+}
+```
+
+### setTableFieldOrder(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { setTableFieldOrder(input: { table_id: \"Dd7rLK9T\" field_ids: [\"first_name\", \"last_name\", \"email\"] }) { table_fields { id } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "setTableFieldOrder": {
+                  "table_fields": [
+                    {
+                      "id": "first_name"
+                    },
+                    {
+                      "id": "last_name"
+                    },
+                    {
+                      "id": "email"
+                    }
+                  ]
+                }
+              }
+            }
+
+## Delete table field [/queries{?delete_table_field}]
+
+Mutation to delete a table field, in case of success a query with field `success` is returned.
+
+**Request Body**
+
+```
+mutation {
+  deleteTableField(
+    input: {
+      table_id: "t0--S8ct"
+      id:"gender"
+    }
+  ) {
+    success
+  }
+}
+```
+
+### deleteTableField(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { deleteTableField(input: { table_id: \"t0--S8ct\" id:\"gender\" }) { success } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "deleteTableField": {
+                  "success": true
+                }
+              }
+            }
+
+## List table records [/queries{?table_records}]
+
+Get table records by table id with pagination.
+
+**Request Body**
+
+```
+{
+  table_records(first: 10, table_id: "G16Za4kK") {
+    edges {
+      cursor
+      node {
+        id
+        title
+        url
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+  }
+}
+```
+
+### table_records(table_id: "TABLE_ID") [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "{ table_records(first: 10, table_id: \"G16Za4kK\") { edges { cursor node { id title url } } pageInfo { endCursor hasNextPage hasPreviousPage startCursor } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "table_records": {
+                  "edges": [
+                    {
+                      "cursor": "OQ==",
+                      "node": {
+                        "id": "2193280",
+                        "title": "Claudio Pipefy",
+                        "url": "http://app.pipefy.com/database_v2/tables/G16Za4kK-employees/table_records/2193280"
+                      }
+                    },
+                    {
+                      "cursor": "MTA=",
+                      "node": {
+                        "id": "2193284",
+                        "title": "Daniel Pipefy",
+                        "url": "http://app.pipefy.com/database_v2/tables/G16Za4kK-employees/table_records/2193284"
+                      }
+                    }
+                  ],
+                  "pageInfo": {
+                    "endCursor": "MTA=",
+                    "hasNextPage": false,
+                    "hasPreviousPage": false,
+                    "startCursor": "OQ=="
+                  }
+                }
+              }
+            }
+
+## Show table record [/queries{?table_record}]
+
+Get table record by table record id.
+
+**Request Body**
+
+```
+{
+  table_record(id: 2193284) {
+    assignees {
+      id
+      name
+    }
+    created_at
+    created_by {
+      id
+      name
+    }
+    due_date
+    finished_at
+    id
+    labels {
+      id
+      name
+    }
+    parent_relations {
+      name
+      source_type
+    }
+    record_fields {
+      array_value
+      date_value
+      datetime_value
+      filled_at
+      float_value
+      name
+      required
+      updated_at
+      value
+    }
+    summary {
+      title
+      value
+    }
+    table {
+      id
+    }
+    title
+    updated_at
+    url
+  }
+}
+```
+
+### table_record(id: TABLE_RECORD_ID) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "{ table_record(id: 2193284) { assignees { id name } created_at created_by { id name } due_date finished_at id labels { id name } parent_relations { name source_type } record_fields { array_value date_value datetime_value filled_at float_value name required updated_at value } summary { title value } table { id } title updated_at url } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "table_record": {
+                  "assignees": [
+                  ],
+                  "created_at": "2017-05-30T17:15:15-03:00",
+                  "created_by": {
+                    "id": "33104",
+                    "name": "marcio.trindade"
+                  },
+                  "due_date": null,
+                  "finished_at": null,
+                  "id": "2193284",
+                  "labels": [
+                  ],
+                  "parent_relations": [
+                    {
+                      "name": "Employee",
+                      "source_type": "Field"
+                    }
+                  ],
+                  "record_fields": [
+                    {
+                      "array_value": null,
+                      "date_value": null,
+                      "datetime_value": null,
+                      "filled_at": "2017-05-30T17:15:15-03:00",
+                      "float_value": null,
+                      "name": "Name",
+                      "required": true,
+                      "updated_at": "2017-05-30T17:15:15-03:00",
+                      "value": "Daniel Pipefy"
+                    },
+                    {
+                      "array_value": null,
+                      "date_value": null,
+                      "datetime_value": null,
+                      "filled_at": "2017-05-30T17:15:15-03:00",
+                      "float_value": null,
+                      "name": "Email",
+                      "required": true,
+                      "updated_at": "2017-05-30T17:15:15-03:00",
+                      "value": "daniel.pipefy@example.com"
+                    }
+                  ],
+                  "summary": [
+                    {
+                      "title": "Email",
+                      "value": "daniel.pipefy@example.com"
+                    }
+                  ],
+                  "table": {
+                    "id": "G16Za4kK"
+                  },
+                  "title": "Daniel Pipefy",
+                  "updated_at": "2017-05-30T17:15:16-03:00",
+                  "url": "http://app.pipefy.com/database_v2/tables/G16Za4kK-employees/table_records/2193284"
+                }
+              }
+            }
+
+## Create table record [/queries{?create_table_record}]
+
+Mutation to create a table record, in case of success a query is returned.
+
+**Request Body**
+
+```
+mutation {
+  createTableRecord(
+    input: {
+      table_id: "Dd7rLK9T"
+      title: "my record"
+      due_date: "2017-12-31T00:00-03:00"
+      fields_attributes: [
+        { field_id: "first_name", field_value: "Tom" },
+        { field_id: "last_name", field_value: "Trindade" },
+        { field_id: "email", field_value: "tom@trindade.com" }
+      ]
+    }
+  ) {
+    table_record {
+      id
+      title
+      due_date
+      record_fields {
+        name
+        value
+      }
+    }
+  }
+}
+```
+
+### createTableRecord(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { createTableRecord(input: { table_id: \"Dd7rLK9T\" title: \"my record\" due_date: \"2017-12-31T00:00-03:00\" fields_attributes: [{  field_id: \"first_name\", field_value: \"Tom\" }, {  field_id: \"last_name\", field_value: \"Trindade\" }, {  field_id: \"email\", field_value: \"tom@trindade.com\" }] }) { table_record { id title due_date record_fields { name value } } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "createTableRecord": {
+                  "table_record": {
+                    "id": "189",
+                    "title": "Tom",
+                    "due_date": "2017-12-31T05:00:00+02:00",
+                    "record_fields": [
+                      {
+                        "name": "First name",
+                        "value": "Tom"
+                      },
+                      {
+                        "name": "Last name",
+                        "value": "Trindade"
+                      },
+                      {
+                        "name": "Email",
+                        "value": "tom@trindade.com"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+
+## Update table record [/queries{?update_table_record}]
+
+Mutation to update a table record, in case of success a query is returned.
+
+**Request Body**
+
+```
+mutation {
+  updateTableRecord(
+    input: {
+      id: "189"
+      title: "My custom title"
+      due_date: "2017-07-31T00:00-05:00"
+    }
+  ) {
+    table_record {
+      id
+      title
+      due_date
+      record_fields {
+        name
+        value
+      }
+    }
+  }
+}
+```
+
+### updateTableRecord(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { updateTableRecord(input: { id: \"189\" title: \"My custom title\" due_date: \"2017-07-31T00:00-05:00\"} ) { table_record { id title due_date record_fields { name value } } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "updateTableRecord": {
+                  "table_record": {
+                    "id": "189",
+                    "title": "My custom title",
+                    "due_date": "2017-07-31T08:00:00+03:00",
+                    "record_fields": [
+                      {
+                        "name": "First name",
+                        "value": "Tom"
+                      },
+                      {
+                        "name": "Last name",
+                        "value": "Trindade"
+                      },
+                      {
+                        "name": "Email",
+                        "value": "tom@trindade.com"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+
+## Set table record field value [/queries{?set_table_record_field_value}]
+
+Mutation to set a table record field value, in case of success a query with field `success` is returned.
+
+**Request Body**
+
+```
+mutation {
+  setTableRecordFieldValue(
+    input: {
+      table_record_id: "188"
+      field_id: "first_name"
+      value: "Theo"
+    }
+  ) {
+    table_record {
+      id
+      title
+    }
+    table_record_field {
+      value
+    }
+  }
+}
+```
+
+### setTableRecordFieldValue(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { setTableRecordFieldValue(input: { table_record_id: \"188\" field_id: \"first_name\" value: \"Theo\"}) { table_record { id title } table_record_field { value } } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "setTableRecordFieldValue": {
+                  "table_record": {
+                    "id": "188",
+                    "title": "Theo"
+                  },
+                  "table_record_field": {
+                    "value": "Theo"
+                  }
+                }
+              }
+            }
+
+## Delete table record [/queries{?delete_table_record}]
+
+Mutation to delete a table record, in case of success a query with field `success` is returned.
+
+**Request Body**
+
+```
+mutation {
+  deleteTableRecord(input: {id: "189"}) {
+    success
+  }
+}
+```
+
+### deleteTableRecord(input: params) [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer your_personal_access_token
+
+
+    + Body
+
+            {
+              "query": "mutation { deleteTableRecord(input: { id: \"189\" }) { success } }"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+              "data": {
+                "deleteTableRecord": {
+                  "success": true
+                }
+              }
+            }
