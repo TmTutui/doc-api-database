@@ -9,7 +9,7 @@ This is Database's API documentation.
 
 ## List tables [/queries{?tables}]
 
-Get tables by table ids.
+Get tables through table ids.
 
 **Request Body**
 
@@ -56,7 +56,7 @@ query {
 
 ## Show table [/queries{?table}]
 
-Get a table by table id.
+Get a table through table id.
 
 **Request Body**
 
@@ -330,7 +330,7 @@ mutation {
 
 ## Delete table [/queries{?delete_table}]
 
-Mutation to delete a table, in case of success a query with field `success` is returned.
+Mutation to delete a table, in case of success a query with the field `success` is returned.
 
 **Request Body**
 
@@ -552,7 +552,7 @@ mutation {
 
 ## Set table record field value [/queries{?set_table_field_order}]
 
-Mutation to set a table field order, in case of success a query with field `success` is returned.
+Mutation to set a table field order, in case of success a query with the field `success` is returned.
 
 **Request Body**
 
@@ -610,7 +610,7 @@ mutation {
 
 ## Delete table field [/queries{?delete_table_field}]
 
-Mutation to delete a table field, in case of success a query with field `success` is returned.
+Mutation to delete a table field, in case of success a query with the field `success` is returned.
 
 **Request Body**
 
@@ -656,7 +656,7 @@ mutation {
 
 ## List table records [/queries{?table_records}]
 
-Get table records by table id with pagination.
+Get table records with pagination through table id .
 
 **Request Body**
 
@@ -681,7 +681,7 @@ Get table records by table id with pagination.
 }
 ```
 
-### table_records(table_id: "TABLE_ID") [POST]
+### table_records(table_id: TABLE_ID) [POST]
 
 + Request (application/json)
 
@@ -733,7 +733,7 @@ Get table records by table id with pagination.
 
 ## Show table record [/queries{?table_record}]
 
-Get table record by table record id.
+Get table record through table record id.
 
 **Request Body**
 
@@ -1018,7 +1018,7 @@ mutation {
 
 ## Set table record field value [/queries{?set_table_record_field_value}]
 
-Mutation to set a table record field value, in case of success a query with field `success` is returned.
+Mutation to set a table record field value, in case of success a query with the field `success` is returned.
 
 **Request Body**
 
@@ -1077,7 +1077,7 @@ mutation {
 
 ## Delete table record [/queries{?delete_table_record}]
 
-Mutation to delete a table record, in case of success a query with field `success` is returned.
+Mutation to delete a table record, in case of success a query with the field `success` is returned.
 
 **Request Body**
 
